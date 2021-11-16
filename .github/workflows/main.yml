@@ -38,14 +38,14 @@ jobs:
       run: node scripts/check-if-release.js
       env:
         COMMIT_SHA_BEFORE: '${{ github.event.before }}'
-    - run: yarn tsc
-    - run: yarn build
+    # - run: yarn tsc
+    # - run: yarn build
 
     - name: Discord notification
       if: ${{ failure() }}
       uses: Ilshidur/action-discord@0.2.0
       env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
       with:
         args: 'Master build failed https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}'
 
@@ -77,11 +77,11 @@ jobs:
         node-version: 14.x
     - run: yarn install --frozen-lockfile
 
-    - name: build type declarations
-      run: yarn tsc
+    # - name: build type declarations
+    #   run: yarn tsc
 
-    - name: build packages
-      run: yarn build
+    # - name: build packages
+    #   run: yarn build
 
     - name: 'Login to npmjs npm repo .npmrc'
       shell: bash
