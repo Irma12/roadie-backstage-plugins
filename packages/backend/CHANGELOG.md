@@ -1,5 +1,12 @@
 # backend
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [1e676c5]
+  - app@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes
