@@ -38,8 +38,12 @@ jobs:
       run: node scripts/check-if-release.js
       env:
         COMMIT_SHA_BEFORE: '${{ github.event.before }}'
-    # - run: yarn tsc
-    # - run: yarn build
+    
+    - name: build type declarations
+      run: yarn tsc
+
+    - name: build packages
+      run: yarn build
 
     - name: Discord notification
       if: ${{ failure() }}
@@ -77,11 +81,11 @@ jobs:
         node-version: 14.x
     - run: yarn install --frozen-lockfile
 
-    # - name: build type declarations
-    #   run: yarn tsc
+    - name: build type declarations
+      run: yarn tsc
 
-    # - name: build packages
-    #   run: yarn build
+    - name: build packages
+      run: yarn build
 
     - name: 'Login to npmjs npm repo .npmrc'
       shell: bash
@@ -110,11 +114,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # Notify everyone about this great new release :D
+    # Notify everyone about this on Discord
     - name: Discord notification
       uses: Ilshidur/action-discord@0.2.0
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
         TAG_NAME: ${{ steps.create_tag.outputs.tag_name }}
       with:
-        args: 'A new release has been published! https://github.com/test/test/releases/tag/{{TAG_NAME}}'
+        args: 'A new release has been published! https://github.com/RoadieHQ/roadie-backstage-plugins/releases/tag/{{TAG_NAME}}'
